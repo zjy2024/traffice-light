@@ -8,7 +8,9 @@ function App() {
   const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
   useEffect(() => {
+    let isMounted = true
     const changeLight = async (currentLight: string) => {
+        if (!isMounted) return
         switch (currentLight) {
           case 'green':
             setLight('yellow')
@@ -39,6 +41,7 @@ function App() {
 
     return () => {
       clearInterval(timer)
+      isMounted = false
     }
   }, [])
 
